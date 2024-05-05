@@ -18,28 +18,29 @@ public class ProducerDemoKeys {
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(buildProperties());
 
-        for (int x = 0; x < 10; x++) {
 
-            String key = "id_" + x;
-            String value = "hello world " + x;
+        for (int y = 0; y < 2; y++) {
+            for (int x = 0; x < 10; x++) {
 
-            ProducerRecord<String, String> producerRecord =
-                    new ProducerRecord<>(TOPIC_NAME, key, value);
+                String key = "id_" + x;
+                String value = "hello world " + x;
 
-            producer.send(producerRecord, (recordMetadata, e) -> {
-                if (e == null) {
-                    //success
-                    log.info("Received new metadata\n" +
-                            "Topic: " + recordMetadata.topic() + "\n" +
-                            "Partition: " + recordMetadata.partition() + "\n" +
-                            "Offset: " + recordMetadata.offset() + "\n" +
-                            "Timestamp: " + recordMetadata.timestamp() + "\n"
+                ProducerRecord<String, String> producerRecord =
+                        new ProducerRecord<>(TOPIC_NAME, key, value);
 
-                    );
-                }
+                producer.send(producerRecord, (recordMetadata, e) -> {
+                    if (e == null) {
+                        //success
+                        log.info("Received new metadata\n" +
+                                "key: " + key + "\n" +
+                                "partition: " + recordMetadata.partition() + "\n"
 
-            });
+                        );
+                    }
 
+                });
+
+            }
         }
 
 
