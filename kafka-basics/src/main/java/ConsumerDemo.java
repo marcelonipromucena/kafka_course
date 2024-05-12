@@ -25,7 +25,6 @@ public class ConsumerDemo {
         while(true){
             log.info("Polling messages from "+TOPIC_NAME+" topic.");
 
-
             //Kafka will wait 1000 seconds to receive data from kafka (to not overload kafka)
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
 
